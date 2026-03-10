@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./Backend
+      dockerfile: Dockerfile
+    ports:
+      - "5200:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ConnectionStrings__DefaultConnection=Host=db;Database=forgedesk_timesheets;Username=postgres;Password=${DB_PASSWORD}
+    depends_on:
+      - db
+    networks:
+      - forgedesk-timesheets
+
+  frontend:
+    build:
+      context: ./Frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3200:80"
+    depends_on:
+      - backend
+    networks:
+      - forgedesk-timesheets
+
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: forgedesk_timesheets
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+    networks:
+      - forgedesk-timesheets
+
+volumes:
+  pgdata:
+
+networks:
+  forgedesk-timesheets:
+    driver: bridge
