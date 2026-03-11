@@ -38,6 +38,11 @@ coverage/
 # Docker
 .docker/
 
+# Database
+*.db
+*.db-shm
+*.db-wal
+
 # Misc
 *.swp
 *.swo

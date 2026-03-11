@@ -1,9 +1,10 @@
-namespace ForgeDesk.Timesheets.Domain.Entities;
+namespace ForgeDesk.Timesheets.Domain.Enums;
 
 public enum LeaveStatus
 {
-    Pending = 0,
-    Approved = 1,
-    Rejected = 2,
-    Cancelled = 3
+    Draft,
+    Pending,
+    Approved,
+    Rejected,
+    Cancelled
 }

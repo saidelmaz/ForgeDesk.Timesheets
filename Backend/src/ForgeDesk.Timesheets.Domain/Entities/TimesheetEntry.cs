@@ -1,27 +1,30 @@
+using ForgeDesk.Timesheets.Domain.Enums;
+
 namespace ForgeDesk.Timesheets.Domain.Entities;
 
 public class TimesheetEntry
 {
-    public int Id { get; set; }
-    public int TenantId { get; set; }
-    public int ResourceId { get; set; }
-    public DateTime Date { get; set; }
-    public int? CustomerId { get; set; }
-    public int? ProjectId { get; set; }
-    public int? TaskId { get; set; }
-    public int? TicketId { get; set; }
-    public decimal ActualHours { get; set; }
+    public Guid Id { get; set; } = Guid.NewGuid();
+    public Guid TenantId { get; set; }
+    public Guid UserId { get; set; }
+    public string? UserDisplayName { get; set; }
+    public Guid ProjectId { get; set; }
+    public Guid? TaskId { get; set; }
+    public Guid? TicketId { get; set; }
+    public string? TicketSubject { get; set; }
+    public Guid? ApplicationId { get; set; }
+    public Guid? CategoryId { get; set; }
+    public DateOnly Date { get; set; }
+    public decimal Hours { get; set; }
     public TimeOnly? StartTime { get; set; }
-    public TimeOnly? StopTime { get; set; }
-    public bool IncludeBreakInActuals { get; set; }
+    public TimeOnly? EndTime { get; set; }
+    public int BreakMinutes { get; set; }
     public string? Notes { get; set; }
-    public TimesheetStatus Status { get; set; } = TimesheetStatus.Open;
+    public TimesheetEntryStatus Status { get; set; } = TimesheetEntryStatus.Draft;
+    public bool IsDone { get; set; }
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     public DateTime? UpdatedAt { get; set; }
 
-    // Navigation properties
-    public virtual Customer? Customer { get; set; }
-    public virtual Project? Project { get; set; }
+    public virtual Project Project { get; set; } = null!;
     public virtual ProjectTask? Task { get; set; }
-    public virtual Resource Resource { get; set; } = null!;
 }

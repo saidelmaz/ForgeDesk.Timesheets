@@ -2,17 +2,19 @@ namespace ForgeDesk.Timesheets.Domain.Entities;
 
 public class LeaveBalance
 {
-    public int Id { get; set; }
-    public int TenantId { get; set; }
-    public int ResourceId { get; set; }
-    public int LeaveTypeId { get; set; }
+    public Guid Id { get; set; } = Guid.NewGuid();
+    public Guid TenantId { get; set; }
+    public Guid UserId { get; set; }
+    public Guid LeaveTypeId { get; set; }
     public int Year { get; set; }
-    public decimal Entitlement { get; set; }
-    public decimal Used { get; set; }
-    public decimal CarriedOver { get; set; }
-    public decimal Remaining => Entitlement + CarriedOver - Used;
+    public decimal TotalDays { get; set; }
+    public decimal UsedDays { get; set; }
+    public decimal PendingDays { get; set; }
+    public decimal CarriedOverDays { get; set; }
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+    public DateTime? UpdatedAt { get; set; }
 
-    // Navigation properties
-    public virtual Resource Resource { get; set; } = null!;
-    public virtual LeaveType LeaveType { get; set; } = null!;
+    public decimal RemainingDays => TotalDays + CarriedOverDays - UsedDays - PendingDays;
+
+    public virtual LeaveType? LeaveType { get; set; }
 }

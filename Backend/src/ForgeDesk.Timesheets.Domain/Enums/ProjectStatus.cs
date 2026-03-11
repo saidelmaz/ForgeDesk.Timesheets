@@ -1,11 +1,9 @@
-namespace ForgeDesk.Timesheets.Domain.Entities;
+namespace ForgeDesk.Timesheets.Domain.Enums;
 
 public enum ProjectStatus
 {
-    InStart = 0,
-    Active = 1,
-    GoLive = 2,
-    Completed = 3,
-    OnHold = 4,
-    Cancelled = 5
+    Active = 0,
+    OnHold = 1,
+    Completed = 2,
+    Cancelled = 3
 }
